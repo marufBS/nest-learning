@@ -12,7 +12,7 @@ export class UsersController {
     returnSingleUser(){
         return {
             id:1,
-            name:'Maruf'
+            name:'Maruf' 
         }
     }
 }
