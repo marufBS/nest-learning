@@ -1,18 +1,28 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
+import { UsersService } from './users.service.js'
 
 @Controller('users')
 export class UsersController {
+
+    constructor(private readonly userService: UsersService) { }
+
     @Get('/')
-    returnUsers(){
-        return['Maruf','Reshmi','Faria','Fabiha']
+    getUsers(@Query('name') name?:string) {
+        if(name){
+            return this.userService.findByName(name)
+        }
+        return this.userService.findAll()
     }
 
 
     @Get(':id')
-    returnSingleUser(){
-        return {
-            id:1,
-            name:'Maruf' 
-        }
+    getUserById(
+        @Param('id') id: string,
+    ) {
+        return this.userService.findUser(Number(id))
     }
+
+
+
+
 }
